@@ -49,10 +49,6 @@ evidence_author = data2['authors'].apply(textToVector, word_embeddings=word_embe
 evidence_title = data2['title'].apply(textToVector, word_embeddings=word_embeddings)
 evidence_source = data2['source'].apply(textToVector, word_embeddings=word_embeddings)
 evidence_summary = data2['summary'].apply(textToVector, word_embeddings=word_embeddings)
-print(evidence_title)
-print(evidence_author)
-print(evidence_source)
-print(evidence_summary)
 evidence_author = evidence_author[0]
 evidence_source = evidence_source[0]
 evidence_title = evidence_title[0]
@@ -119,12 +115,24 @@ num_categories_title = len(data['title'].unique())
 num_categories_source = len(data['source'].unique())
 num_categories_summary = len(data['summary'].unique())
 
+num_columns = 0
+if num_categories_author > 1:
+    num_columns += 1
+if num_categories_title > 1:
+    num_columns += 1
+if num_categories_source > 1:
+    num_columns += 1
+if num_categories_summary > 1:
+    num_columns += 1
+
+num_categories_class = 2 ** num_columns
+
 be = BayesianEstimator(model, data)
-cpd_author = be.estimate_cpd('authors', prior_type='dirichlet', pseudo_counts=np.ones((num_categories_author, 1)))
-cpd_source = be.estimate_cpd('source', prior_type='dirichlet', pseudo_counts=np.ones((num_categories_source, 2)))
-cpd_title = be.estimate_cpd('title', prior_type='dirichlet', pseudo_counts=np.ones((num_categories_title, 1)))
-cpd_summary = be.estimate_cpd('summary', prior_type='dirichlet', pseudo_counts=np.ones((num_categories_summary, 1)))
-cpd_class = be.estimate_cpd('class', prior_type='dirichlet', pseudo_counts=np.ones((2, 8)))
+cpd_author = be.estimate_cpd('authors', prior_type='dirichlet', pseudo_counts=np.ones((num_categories_author,1)))
+cpd_source = be.estimate_cpd('source', prior_type='dirichlet', pseudo_counts=np.ones((num_categories_source, num_categories_author)))
+cpd_title = be.estimate_cpd('title', prior_type='dirichlet', pseudo_counts=np.ones((num_categories_title,1)))
+cpd_summary = be.estimate_cpd('summary', prior_type='dirichlet', pseudo_counts=np.ones((num_categories_summary,1)))
+cpd_class = be.estimate_cpd('class', prior_type='dirichlet', pseudo_counts=np.ones((2,num_categories_class)))
 
 print(cpd_author)
 print(cpd_title)
