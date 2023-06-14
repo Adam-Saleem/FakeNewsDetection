@@ -43,23 +43,18 @@ class FNDController extends BaseController
         $summaryToNormalizeText = $pythonPath . ' ' . $normalizationPath . ' 2>&1';
         $normalizeText = shell_exec($summaryToNormalizeText);
 
+        $normalizeTitle = str_replace(array("\r", "\n",",")," ",$normalizeTitle);
+        $normalizeText = str_replace(array("\r", "\n",",")," ",$normalizeText);
+        $author = str_replace(array("\r", "\n",",")," ",$author);
+        $source = str_replace(array("\r", "\n",",")," ",$source);
 
         $testData_file_path = public_path('python\testData.csv');
-        file_put_contents($testData_file_path,"title,summary,authors,source");
-        $file = file_get_contents($testData_file_path);
+        $data = "title,summary,authors,source\n"."$normalizeTitle,$normalizeText,$author,$source";
+        file_put_contents($testData_file_path,$data);
 
-        $normalizeTitle = str_replace(",","",$normalizeTitle);
-        $normalizeText = str_replace(",","",$normalizeText);
-        $author = str_replace(",","",$author);
-        $source = str_replace(",","",$source);
-        
-        $data = "$file\n"."$normalizeTitle,$normalizeText,$author,$source";
-        logger($data);
-        fwrite(fopen($testData_file_path, 'w'), $data);
-
-        $baysianRun = $pythonPath . ' ' . $baysianPath . ' 2>&1';
-        $result = shell_exec($baysianRun);
-        logger($result);
+//        $baysianRun = $pythonPath . ' ' . $baysianPath . ' 2>&1';
+//        $result = shell_exec($baysianRun);
+//        logger($result);
 
         return redirect('/');
     }
