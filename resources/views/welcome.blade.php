@@ -96,6 +96,8 @@
                         </div>
                         <div class="text-right">
                             <button id="textCheckButton" type="button" class="btn btn-primary">Check News</button>
+                        </div>
+                        <div class="text-right">
                             <span id="textTimer" style="display: none;">Timer: <span class="Time">0</span>s</span>
                         </div>
                     </form>
@@ -118,6 +120,8 @@
                         </div>
                         <div class="text-right">
                             <button id="urlCheckButton" type="button" class="btn btn-primary">Check News URL</button>
+                        </div>
+                        <div class="text-right">
                             <span id="urlTimer" style="display: none;">Timer: <span class="Time">0</span>s</span>
                         </div>
                     </form>
@@ -167,7 +171,7 @@
             var formData = new FormData(form);
             if (isFormValid(form)) {
                 $("#textCheckButton").prop("disabled", true);
-                $("#urlTimer").show();
+                $("#textTimer").show();
                 startTimer();
                 $.ajax({
                     url: form.action,
