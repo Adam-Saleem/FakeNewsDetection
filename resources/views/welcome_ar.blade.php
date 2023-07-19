@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" class="h-100">
+<html dir="rtl" lang="ar" class="h-100">
 
 <head>
     <meta charset="utf-8">
-    <title>Fake News Detection</title>
+    <title>كاشف الأخبار الكاذبة</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('fnd/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -49,60 +49,60 @@
 <div class="container d-flex w-100 mx-auto h-100 p-3 flex-column">
     <header class="mx-5">
         <div>
-            <h3 class="mb-0"><img src="{{ asset('fnd/logo.png') }}" height="50" width="50"> Fake News Detection
+            <h3 class="mb-0"><img src="{{ asset('fnd/logo.png') }}" height="50" width="50"> كاشف الأخبار الكاذبة
             </h3>
             <nav class="nav nav-masthead justify-content-center mt-2">
-                <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
-                <a class="nav-link fw-bold py-1 px-0" href="#">Methodology</a>
-                <a class="nav-link fw-bold py-1 px-0" href="#">About Us</a>
-                <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
+                <a class="nav-link fw-bold py-1 px-1 active" aria-current="page" href="#"> الصفحة الرئيسة </a>
+                <a class="nav-link fw-bold py-1 px-1" href="#"> طريقة العمل </a>
+                <a class="nav-link fw-bold py-1 px-1" href="#"> من نحن؟ </a>
+                <a class="nav-link fw-bold py-1 px-1" href="#"> تواصل معنا </a>
             </nav>
         </div>
     </header>
     <div class="m-5">
         <main class="px-3">
-            <div>
+            <div class="px-3">
                 <nav class="nav nav-masthead">
-                    <button id="text-link" class="btn btn-link nav-link fw-bold py-1 px-0 active"
-                       onclick="myFunction('text-test')">Author, Source, Title and Text</button>
-                    <button id="url-link" class="btn btn-link nav-link fw-bold py-1 px-0"
-                       onclick="myFunction('url-test')">URL</button>
+                    <button id="text-link" class="btn btn-link nav-link fw-bold py-1 px-1 active"
+                       onclick="myFunction('text-test')"> الكاتب ، المصدر ، العنوان والنص </button>
+                    <button id="url-link" class="btn btn-link nav-link fw-bold py-1 px-1"
+                       onclick="myFunction('url-test')"> العنوان الإلكتروني </button>
                 </nav>
             </div>
             <div id="text-test">
-                <div class="mt-5 text-left">
+                <div class="mt-5 text-right">
                     <form id="textForm" method="post" action="{{ url('/text-test') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <h4>Title</h4>
-                                <input name="title" type="text" class="form-control" placeholder="Title" required>
+                                <h4>العنوان</h4>
+                                <input name="title" type="text" class="form-control" placeholder="عنوان المقالة" required>
                             </div>
                             <div class="form-group col-md-3">
-                                <h4>Author</h4>
-                                <input name="author" type="text" class="form-control" placeholder="Author" required>
+                                <h4>الكاتب</h4>
+                                <input name="author" type="text" class="form-control" placeholder="الكاتب" required>
                             </div>
                             <div class="form-group col-md-3">
-                                <h4>Source</h4>
-                                <input name="source" type="text" class="form-control" placeholder="Source" required>
+                                <h4>المصدر</h4>
+                                <input name="source" type="text" class="form-control" placeholder="المصدر" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="mb-3">
-                                <h4>News Text</h4>
+                                <h4>نص المقالة</h4>
                                 <textarea name="text" class="form-control" rows="3"
-                                          placeholder="News Text ..." required></textarea>
+                                          placeholder="نص المقالة ..." required></textarea>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <button id="textCheckButton" type="button" class="btn btn-primary">Check News</button>
+                        <div class="text-left">
+                            <button id="textCheckButton" type="button" class="btn btn-primary">فحص الخبر</button>
                         </div>
-                        <div class="text-right">
-                            <span id="textTimer" style="display: none;">Timer: <span class="Time">0</span>s</span>
+                        <div class="text-left">
+                            <span id="textTimer" style="display: none;">الوقت: <span class="Time">0</span>s</span>
                         </div>
                     </form>
                 </div>
-                <div class="mt-2 text-left formError">
+                <div class="mt-2 text-right formError">
                     <span id="formError" style="display: none;"></span>
                 </div>
                 <div id="textResult" class="mt-2 text-left" style="display: none;">
@@ -111,26 +111,26 @@
                 </div>
             </div>
             <div id="url-test" style="display: none;">
-                <div class="mt-5 text-left">
+                <div class="mt-5 text-right">
                     <form id="urlForm" method="post" action="{{ url('/url-test') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <h4>URL</h4>
-                            <input type="text" class="form-control" placeholder="Url" required>
+                            <h4>العنوان الإلكتروني</h4>
+                            <input type="text" class="form-control" placeholder="Url , العنوان الإلكتروني" required>
                         </div>
-                        <div class="text-right">
-                            <button id="urlCheckButton" type="button" class="btn btn-primary">Check News URL</button>
+                        <div class="text-left">
+                            <button id="urlCheckButton" type="button" class="btn btn-primary">فحص العنوان الإلكتروني</button>
                         </div>
-                        <div class="text-right">
-                            <span id="urlTimer" style="display: none;">Timer: <span class="Time">0</span>s</span>
+                        <div class="text-left">
+                            <span id="urlTimer" style="display: none;">الوقت: <span class="Time">0</span>s</span>
                         </div>
                     </form>
                 </div>
-                <div class="mt-2 text-left formError">
+                <div class="mt-2 text-right formError">
                     <span id="formError" style="display: none;"></span>
                 </div>
-                <div id="urlResult" class="mt-2 text-left" style="display: none;">
-                    <h5>Result</h5>
+                <div id="urlResult" class="mt-2 text-right" style="display: none;">
+                    <h5>النتيجة</h5>
                     <div id="urlResultContent"></div>
                 </div>
             </div>
@@ -192,7 +192,7 @@
                 });
                 $(".formError").text("");
             } else {
-                $(".formError").text("Please Fill All Required Inputs");
+                $(".formError").text("عذرًا ، تأكد من تعبئة الحقول المطلوبة أولا");
             }
         });
 
@@ -224,7 +224,7 @@
                 });
                 $(".formError").text("");
             } else {
-                $(".formError").text("Please Fill All Required Inputs");
+                $(".formError").text("عذرًا ، تأكد من تعبئة الحقول المطلوبة أولا");
             }
         });
     });
