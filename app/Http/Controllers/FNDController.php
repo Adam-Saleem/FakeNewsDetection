@@ -39,11 +39,8 @@ class FNDController extends BaseController
             escapeshellarg($textFile);
 
         $result = shell_exec($command);
-
-        logger($result);
         $this->deleteTempFile($textFile);
-
-        return $result;
+        return json_decode($result, true);
     }
 
     public function Url_Test(Request $request)
@@ -51,7 +48,7 @@ class FNDController extends BaseController
         $url = $request->get('url');
         $command = $this->pythonPath . ' ' . $this->textUrlPath . ' ' . $url;
         $result = shell_exec($command);
-        return $result;
+        return json_decode($result, true);
     }
 
     public function deleteTempFile($fileName)

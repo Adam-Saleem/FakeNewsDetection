@@ -3,70 +3,21 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\testData.csv">
+        <entry key="\testFile_3157d695-8456-425b-80b9-2918f4c29da4.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\testFile_04128795-2674-41d5-a0d6-437056531115.csv">
+        <entry key="\testFile_3afb4174-8eb4-45ec-8d57-7c368e93c9cf.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\testFile_0d4e8695-5f3f-468c-86dc-184c75f07e92.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\testFile_422c705e-451b-4499-84c6-ee5a1d555858.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\testFile_6279ca32-f277-4ada-99ef-d86f20231646.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\testFile_6f6ed129-6e81-4de8-9000-5e69f8d5f57d.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\testFile_75903dae-bb2d-4f4e-83ff-d9b6d1235974.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\testFile_9a3ba044-1911-4597-9288-0a2ccb1916dd.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\testFile_d2ead926-2c7b-4d9c-8516-4f962a1a8044.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\test\fourth.csv">
+        <entry key="\testFile_8c5464dd-f97e-4eb5-ace2-0d57b115fd1d.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

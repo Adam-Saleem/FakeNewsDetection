@@ -9,10 +9,8 @@ title = sys.argv[1]
 authors = sys.argv[2]
 source = sys.argv[3]
 textFile = sys.argv[4]
-print(textFile)
 script_dir = os.path.dirname(os.path.abspath(__file__))
 text_file_path = os.path.join(script_dir, '..\\temp\\'+textFile)
-print(text_file_path)
 with open(text_file_path, 'r', encoding="utf-8") as f:
     text = f.read()
 
@@ -27,6 +25,6 @@ title = normalization.normalize(title)
 text = normalization.normalize(summary_text)
 
 testFileName = SavingFile.save_to_csv(title, authors, source, text)
-
 result = dynamicBayesian_Vectors.bayesin(testFileName)
+os.remove(os.path.join(script_dir, testFileName))
 print(result)

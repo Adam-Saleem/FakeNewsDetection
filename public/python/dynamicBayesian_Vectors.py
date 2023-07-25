@@ -5,10 +5,11 @@ import pandas as pd
 import numpy as np
 from toVector import textToVector
 from _CustomVectorSimilarity import myCosine_similarity
-
+import json
 import os
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
+
 
 def bayesin(testFileName):
     model = BayesianNetwork([('authors', 'source'), ('authors', 'class'),
@@ -150,7 +151,6 @@ def bayesin(testFileName):
     cpd_class = be.estimate_cpd(
         'class', prior_type='dirichlet', pseudo_counts=np.ones((2, num_categories_class)))
 
-
     model.add_cpds(cpd_author, cpd_title, cpd_source, cpd_summary, cpd_class)
 
     # Create an inference engine to perform inference on the network
@@ -160,4 +160,12 @@ def bayesin(testFileName):
     query = inference.query(['class'], evidence={
         'authors': evidence_author, 'title': evidence_title,
         'source': evidence_source, 'summary': evidence_summary}, joint=False)
-    return query['class']
+    result_array = query['class'].values
+
+    result_list = result_array.tolist()
+
+    result_json = json.dumps(result_list)
+    return result_json
+
+
+# bayesin('testFile_3157d695-8456-425b-80b9-2918f4c29da4.csv')

@@ -124,81 +124,10 @@
                 <div class="mt-2 text-left formError">
                     <span id="formError" style="display: none;"></span>
                 </div>
-                <div id="textResult" class="my-3 text-left" >
-                    <h2>Result</h2>
-                </div>
-                <div>
-                    <div class="row">
-                        <h4 class="col-md-2 col-sm-4">Title</h4>
-                        <div class="col-md-4 col-sm-8">
-                            <div class="custom-progress">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" style="width: 50%;">
-                                        <span class="progress-text">50% True</span>
-                                    </div>
-                                    <div class="progress-bar bg-danger" style="width: 50%;">
-                                        <span class="progress-text">50% Fake</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <h4 class="col-md-2 col-sm-4">Author</h4>
-                        <div class="col-md-4 col-sm-8">
-                            <div class="custom-progress">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" style="width: 30%;">
-                                        <span class="progress-text">30% True</span>
-                                    </div>
-                                    <div class="progress-bar bg-danger" style="width: 70%;">
-                                        <span class="progress-text">70% Fake</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="col-md-2 col-sm-4">Source</h4>
-                        <div class="col-md-4 col-sm-8">
-                            <div class="custom-progress">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" style="width: 60%;">
-                                        <span class="progress-text">60% True</span>
-                                    </div>
-                                    <div class="progress-bar bg-danger" style="width: 40%;">
-                                        <span class="progress-text">40% Fake</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="col-md-2 col-sm-4">Text</h4>
-                        <div class="col-md-4 col-sm-8">
-                            <div class="custom-progress">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" style="width: 75%;">
-                                        <span class="progress-text">75% True</span>
-                                    </div>
-                                    <div class="progress-bar bg-danger" style="width: 25%;">
-                                        <span class="progress-text">25% Fake</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <h3>Final Result</h3>
-                    <div>
-                        <div class="custom-progress">
-                            <div class="progress">
-                                <div class="progress-bar bg-success" style="width: 60%;">
-                                    <span class="progress-text">60% True</span>
-                                </div>
-                                <div class="progress-bar bg-danger" style="width: 40%;">
-                                    <span class="progress-text">40% Fake</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="textResult" class="mt-2 text-left" style="display: none;">
+                    <h5>Result</h5>
+                    <div id="textResultContent"></div>
                 </div>
 
 
@@ -273,8 +202,29 @@
                     success: function (response) {
                         stopTimer();
                         $("#textCheckButton").prop("disabled", false);
+                        console.log(response)
+                        var fakePercentage = Math.round(response[0] * 100);
+                        var truePercentage = Math.round(response[1] * 100);
+                        console.log(fakePercentage)
+                        console.log(truePercentage)
                         $("#textResult").show();
-                        $("#resultContent").html(response);
+                        $("#textResultContent").html(`
+                                                    <div class="text-center">
+                                                        <h3>Final Result</h3>
+                                                        <div>
+                                                            <div class="custom-progress">
+                                                                <div class="progress">
+                                                                    <div class="progress-bar bg-success" style="width: ${truePercentage}%;">
+                                                                        <span class="progress-text">${truePercentage}% True</span>
+                                                                    </div>
+                                                                    <div class="progress-bar bg-danger" style="width: ${fakePercentage}%;">
+                                                                        <span class="progress-text">${fakePercentage}% Fake</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    `);
                     },
                     error: function (error) {
                         stopTimer();
@@ -305,8 +255,27 @@
                     success: function (response) {
                         stopTimer();
                         $("#urlCheckButton").prop("disabled", false);
+                        var fakePercentage = Math.round(response[0] * 100);
+                        var truePercentage = Math.round(response[1] * 100);
+
                         $("#urlResult").show();
-                        $("#urlResultContent").html(response);
+                        $("#urlResultContent").html(`
+                                                    <div class="text-center">
+                                                        <h3>Final Result</h3>
+                                                        <div>
+                                                            <div class="custom-progress">
+                                                                <div class="progress">
+                                                                    <div class="progress-bar bg-success" style="width: ${truePercentage}%;">
+                                                                        <span class="progress-text">${truePercentage}% True</span>
+                                                                    </div>
+                                                                    <div class="progress-bar bg-danger" style="width: ${fakePercentage}%;">
+                                                                        <span class="progress-text">${fakePercentage}% Fake</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    `);
                     },
                     error: function (error) {
                         stopTimer();
@@ -345,15 +314,15 @@
         clearInterval(timerInterval);
     }
 
-    document.getElementById("textForm").addEventListener("keypress", function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-      }
+    document.getElementById("textForm").addEventListener("keypress", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+        }
     });
-    document.getElementById("urlForm").addEventListener("keypress", function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-      }
+    document.getElementById("urlForm").addEventListener("keypress", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+        }
     });
 </script>
 </html>
