@@ -30,4 +30,5 @@ text = normalization.normalize(summary_text)
 
 testFileName = SavingFile.save_to_csv(title, authors, source, text)
 result = dynamicBayesian_Vectors.bayesin(testFileName)
+os.remove(os.path.join(script_dir, testFileName))
 print(result)
