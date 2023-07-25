@@ -1,4 +1,4 @@
-from pgmpy.models import BayesianModel
+from pgmpy.models import BayesianNetwork
 from pgmpy.estimators import BayesianEstimator
 from pgmpy.inference import VariableElimination
 import pandas as pd
@@ -10,9 +10,9 @@ import os
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-def bayesin():
-    model = BayesianModel(
-    [('authors', 'source'), ('authors', 'class'), ('source', 'class'), ('title', 'class'), ('summary', 'class')])
+def bayesin(testFileName):
+    model = BayesianNetwork([('authors', 'source'), ('authors', 'class'),
+                             ('source', 'class'), ('title', 'class'), ('summary', 'class')])
     # Load the training data
     training_file_path = os.path.join(script_dir, 'training.csv')
     data = pd.read_csv(training_file_path)
@@ -42,18 +42,26 @@ def bayesin():
     # Replace the column names and vector conversion code with your specific implementation
     # Extract word vectors
     data['authors'] = data['authors'].apply(
-        textToVector, word_embeddings=word_embeddings, char_embeddings=char_embeddings)
+        lambda authors: convert_authors_to_vector(
+            authors, word_embeddings=word_embeddings, char_embeddings=char_embeddings)
+    )
     data['title'] = data['title'].apply(
-        textToVector, word_embeddings=word_embeddings, char_embeddings=char_embeddings)
+        lambda title: textToVector(
+            title, word_embeddings=word_embeddings, char_embeddings=char_embeddings)
+    )
     data['source'] = data['source'].apply(
-        textToVector, word_embeddings=word_embeddings, char_embeddings=char_embeddings)
+        lambda source: textToVector(
+            source, word_embeddings=word_embeddings, char_embeddings=char_embeddings)
+    )
     data['summary'] = data['summary'].apply(
-        textToVector, word_embeddings=word_embeddings, char_embeddings=char_embeddings)
+        lambda summary: textToVector(
+            summary, word_embeddings=word_embeddings, char_embeddings=char_embeddings)
+    )
 
     # Define a similarity threshold for evidence
     similarity_threshold = 0.7
 
-    testData_file_path = os.path.join(script_dir, 'testData.csv')
+    testData_file_path = os.path.join(script_dir, testFileName)
     data2 = pd.read_csv(testData_file_path)
 
     # # Convert the evidence vectors
@@ -142,11 +150,6 @@ def bayesin():
     cpd_class = be.estimate_cpd(
         'class', prior_type='dirichlet', pseudo_counts=np.ones((2, num_categories_class)))
 
-    print(cpd_author)
-    print(cpd_title)
-    print(cpd_source)
-    print(cpd_summary)
-    print(cpd_class)
 
     model.add_cpds(cpd_author, cpd_title, cpd_source, cpd_summary, cpd_class)
 
@@ -157,5 +160,4 @@ def bayesin():
     query = inference.query(['class'], evidence={
         'authors': evidence_author, 'title': evidence_title,
         'source': evidence_source, 'summary': evidence_summary}, joint=False)
-
     return query['class']

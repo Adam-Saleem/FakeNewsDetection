@@ -14,11 +14,13 @@ class FNDController extends BaseController
 
     public string $pythonPath;
     public string $textTestPath;
+    public string $textUrlPath;
 
     public function __construct()
     {
         $this->pythonPath = public_path('python\venv\Scripts\python.exe');
-        $this->textTestPath = public_path('python\textTestPath.py');
+        $this->textTestPath = public_path('python\textTest.py');
+        $this->textUrlPath = public_path('python\urlTest.py');
     }
 
     public function Text_Test(Request $request)
@@ -29,16 +31,27 @@ class FNDController extends BaseController
         $text = $request->get('text');
 
         $textFile = $this->createTempFile('text', $text);
-        $command = $this->pythonPath . ' ' . $this->textTestPath . ' ' . $title. ' ' . $author. ' ' . $source. ' ' . $textFile;
+        $command = $this->pythonPath . ' ' .
+            escapeshellarg($this->textTestPath) . ' ' .
+            escapeshellarg($title) . ' ' .
+            escapeshellarg($author) . ' ' .
+            escapeshellarg($source) . ' ' .
+            escapeshellarg($textFile);
+
         $result = shell_exec($command);
 
-        return 'test summery title: ' . $result;
+        logger($result);
+        $this->deleteTempFile($textFile);
+
+        return $result;
     }
 
     public function Url_Test(Request $request)
     {
-        logger($request);
-        return 'url';
+        $url = $request->get('url');
+        $command = $this->pythonPath . ' ' . $this->textUrlPath . ' ' . $url;
+        $result = shell_exec($command);
+        return $result;
     }
 
     public function deleteTempFile($fileName)

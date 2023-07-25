@@ -116,7 +116,7 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <h4>العنوان الإلكتروني</h4>
-                            <input type="text" class="form-control" placeholder="Url , العنوان الإلكتروني" required>
+                            <input name="url" type="text" class="form-control" placeholder="Url , العنوان الإلكتروني" required>
                         </div>
                         <div class="text-left">
                             <button id="urlCheckButton" type="button" class="btn btn-primary">فحص العنوان الإلكتروني</button>
@@ -251,5 +251,15 @@
     function stopTimer() {
         clearInterval(timerInterval);
     }
+    document.getElementById("textForm").addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+      }
+    });
+    document.getElementById("urlForm").addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+      }
+    });
 </script>
 </html>

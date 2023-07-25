@@ -12,6 +12,23 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
+        .custom-progress {
+            height: 40px; /* Adjust the height as per your preference */
+        }
+
+        .custom-progress .progress {
+            height: 30px; /* Adjust the height as per your preference */
+        }
+
+        .custom-progress .progress-bar {
+            height: 30px; /* Adjust the height as per your preference */
+            line-height: 40px; /* Adjust the line-height to vertically center the text */
+        }
+
+        .custom-progress .progress-text {
+            line-height: 30px; /* Adjust the line-height to vertically center the text */
+        }
+
         body {
             text-shadow: 0 .05rem .1rem rgba(0, 0, 0, 0.9);
             box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.1);
@@ -64,9 +81,11 @@
             <div>
                 <nav class="nav nav-masthead">
                     <button id="text-link" class="btn btn-link nav-link fw-bold py-1 px-0 active"
-                       onclick="myFunction('text-test')">Author, Source, Title and Text</button>
+                            onclick="myFunction('text-test')">Author, Source, Title and Text
+                    </button>
                     <button id="url-link" class="btn btn-link nav-link fw-bold py-1 px-0"
-                       onclick="myFunction('url-test')">URL</button>
+                            onclick="myFunction('url-test')">URL
+                    </button>
                 </nav>
             </div>
             <div id="text-test">
@@ -105,10 +124,84 @@
                 <div class="mt-2 text-left formError">
                     <span id="formError" style="display: none;"></span>
                 </div>
-                <div id="textResult" class="mt-2 text-left" style="display: none;">
-                    <h5>Result</h5>
-                    <div id="resultContent"></div>
+                <div id="textResult" class="my-3 text-left" >
+                    <h2>Result</h2>
                 </div>
+                <div>
+                    <div class="row">
+                        <h4 class="col-md-2 col-sm-4">Title</h4>
+                        <div class="col-md-4 col-sm-8">
+                            <div class="custom-progress">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 50%;">
+                                        <span class="progress-text">50% True</span>
+                                    </div>
+                                    <div class="progress-bar bg-danger" style="width: 50%;">
+                                        <span class="progress-text">50% Fake</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="col-md-2 col-sm-4">Author</h4>
+                        <div class="col-md-4 col-sm-8">
+                            <div class="custom-progress">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 30%;">
+                                        <span class="progress-text">30% True</span>
+                                    </div>
+                                    <div class="progress-bar bg-danger" style="width: 70%;">
+                                        <span class="progress-text">70% Fake</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="col-md-2 col-sm-4">Source</h4>
+                        <div class="col-md-4 col-sm-8">
+                            <div class="custom-progress">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 60%;">
+                                        <span class="progress-text">60% True</span>
+                                    </div>
+                                    <div class="progress-bar bg-danger" style="width: 40%;">
+                                        <span class="progress-text">40% Fake</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="col-md-2 col-sm-4">Text</h4>
+                        <div class="col-md-4 col-sm-8">
+                            <div class="custom-progress">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 75%;">
+                                        <span class="progress-text">75% True</span>
+                                    </div>
+                                    <div class="progress-bar bg-danger" style="width: 25%;">
+                                        <span class="progress-text">25% Fake</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <h3>Final Result</h3>
+                    <div>
+                        <div class="custom-progress">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" style="width: 60%;">
+                                    <span class="progress-text">60% True</span>
+                                </div>
+                                <div class="progress-bar bg-danger" style="width: 40%;">
+                                    <span class="progress-text">40% Fake</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <div id="url-test" style="display: none;">
                 <div class="mt-5 text-left">
@@ -116,7 +209,7 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <h4>URL</h4>
-                            <input type="text" class="form-control" placeholder="Url" required>
+                            <input name="url" type="text" class="form-control" placeholder="Url" required>
                         </div>
                         <div class="text-right">
                             <button id="urlCheckButton" type="button" class="btn btn-primary">Check News URL</button>
@@ -251,5 +344,16 @@
     function stopTimer() {
         clearInterval(timerInterval);
     }
+
+    document.getElementById("textForm").addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+      }
+    });
+    document.getElementById("urlForm").addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+      }
+    });
 </script>
 </html>
